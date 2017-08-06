@@ -1,21 +1,23 @@
 <template>
 	<div  class='newsWrapper'>
 		<div class='newslist'>
+			<router-link 
+			:to = '{name:"Detail",params: { id: newsitem.id }}' 
+			v-for = 'newsitem in stories' 
+			:key = 'newsitem.id'>
 			<div class = 'news-item'>
-				<div class="news-content">同样是大城市，为什么上海不像北京那么拥堵？</div>
+				<div class="news-content" v-cloak>{{newsitem.title}}</div>
 				<div class="news-img">
-					<img src="https://pic1.zhimg.com/v2-02bbe030e89f0537f83e5008f4511dd0.jpg" alt="">
+					<img 
+					:src='newsitem.images[0]' 
+					:alt='newsitem.title'>
 				</div>
 			</div>
-			<div class = 'news-item'>
-				<div class="news-content">同样是大城市，为什么上海不像北京那么拥堵？</div>
-				<div class="news-img">
-					<img src="https://pic1.zhimg.com/v2-02bbe030e89f0537f83e5008f4511dd0.jpg" alt="">
-				</div>
-			</div>
+			</router-link>
 		</div>
 	</div>
 </template>
+
 <script>
 import { NEWSLIST } from '@/store/type';
 
@@ -23,20 +25,24 @@ export default {
 	name: 'newlist',
 	data(){
 		return {
-
+			
+		}
+	},
+	props:{
+		stories : {
+			type : Array,
+			default : []
 		}
 	},
 	methods: {
-		loadData() {
-			console.log('0000000000000')
-			this.$store.dispatch(NEWSLIST);
-		}
 	},
-	mouted(){
-		this.$store.dispatch(NEWSLIST);
+	created(){
+	},
+	mounted () {
 	}
 };
 </script>
+
 <style lang = 'stylus' scoped>
 	.newsWrapper
 		display flex
